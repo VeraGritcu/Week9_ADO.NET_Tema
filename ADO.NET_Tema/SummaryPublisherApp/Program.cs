@@ -19,6 +19,7 @@ namespace SummaryPublisherApp
             manager.ReadRowsFromPublisher();
             manager.NoOfBooksForEachPublisher();
             manager.PriceOfBooksPerEachPublisher();
+            
 
         }
     }

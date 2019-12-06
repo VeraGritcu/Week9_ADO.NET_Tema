@@ -214,5 +214,43 @@ namespace SQLUtils
             }
 
         }
+        public void DeleteBook(string title)
+        {
+            var sqlConnection = OpenSQLConnection();
+            try
+            {
+                var commandQuery = "delete Book set Title = @Title where Title like 'Some Title'; select scope_identity();";
+
+                SqlCommand updateCommand = new SqlCommand(commandQuery, sqlConnection);
+
+                SqlParameter titleParam = new SqlParameter("@Title", title);
+                updateCommand.Parameters.Add(titleParam);
+                var id = updateCommand.ExecuteScalar();
+
+                Console.WriteLine($"The book you just updated holds the BookID {id}");
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+        public void SelectBookAndRead()
+        {
+            var sqlConnection = OpenSQLConnection();
+            try
+            {
+                var query = "select * from book where bookid = 6;select scope_identity();";
+
+                SqlCommand command = new SqlCommand(query, sqlConnection);
+                var id = command.ExecuteScalar();
+                Console.WriteLine($"You selected bookID {id}");
+                
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }
